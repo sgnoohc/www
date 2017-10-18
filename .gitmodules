@@ -10,3 +10,6 @@
 [submodule "plottery"]
 	path = plottery
 	url = git@github.com:aminnj/plottery.git
+[submodule "ProjectMetis"]
+	path = ProjectMetis
+	url = git@github.com:aminnj/ProjectMetis.git
