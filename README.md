@@ -5,6 +5,7 @@
     git clone --recursive git@github.com:sgnoohc/www.git
     cd www/
     source scripts/setup.sh
+    cd CORE; make -j20; cd ..;
     cd WWW_CORE; make -j20; cd ..;
     cd rooutil; make -j20; cd ..;
 
