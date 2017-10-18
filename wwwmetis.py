@@ -3,8 +3,12 @@
 ################################
 # Job tag and output hadoop path
 ################################
+
+# NOTE: If you want to resubmit the skimming job, you need to delete $ANALYSIS_BASE/tasks and hadoop_path output path
+
 job_tag = "v16_skim"
-hadoop_path = "metis/wwwlooper/{}".format(job_tag)
+hadoop_path = "metis/wwwlooper/{}".format(job_tag) # The output goes to /hadoop/cms/store/user/$USER/"hadoop_path"
+
 
 
 
@@ -67,7 +71,7 @@ while True:
             executable = exec_path,
             tarfile = targzpath,
             special_dir = hadoop_path,
-            condor_submit_params = {"sites" : "UAF"}
+            condor_submit_params = {"sites" : "UAF,T2_US_UCSD"}
             )
     task.process()
     # save some information for the dashboard
