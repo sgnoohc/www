@@ -2,11 +2,10 @@
 
 # First time installing
 
-    git@github.com:sgnoohc/WWW_CORE.git; cd WWW_CORE; make -j20; cd ..;
-    git@github.com:sgnoohc/rooutil.git; cd rooutil; make -j20; cd ..;
-    git@github.com:sgnoohc/scripts.git
-    git@github.com:aminnj/plottery.git
+    git clone --recursive git@github.com:sgnoohc/www.git
     source scripts/setup.sh
+    cd WWW_CORE; make -j20; cd ..;
+    cd rooutil; make -j20; cd ..;
 
 # Second time
 
