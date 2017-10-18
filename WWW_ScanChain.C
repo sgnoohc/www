@@ -120,14 +120,19 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         {
             if (
                 (
-                    lepidx["LooseLepton"].size() == 2
+                    lepidx["VetoLepton"].size() == 2
                     && lepidx["TightLepton"].size() >= 1
-                    && lepidx["GoodSSJet"].size() >= 2
+                    && jetidx["GoodSSJet"].size() >= 2
+                    && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][0]].pt() >= 30.)
+                    && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][1]].pt() >= 30.)
                 )
                 ||
                 (
-                    lepidx["LooseLepton"].size() == 3
+                    lepidx["LooseLepton"].size() >= 3
                     && lepidx["Tight3lLepton"].size() >= 2
+                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][0]].pt() >= 25.)
+                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][1]].pt() >= 20.)
+                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][2]].pt() >= 20.)
                 )
             )
             {

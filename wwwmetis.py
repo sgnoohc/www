@@ -22,6 +22,8 @@ import time
 import json
 import metis
 
+from time import sleep
+
 from metis.Sample import DirectorySample
 from metis.CondorTask import CondorTask
 
@@ -78,10 +80,18 @@ while True:
     total_summary["WWW_v0_1_{}_{}".format(baby_version, job_tag)] = task.get_task_summary()
     # parse the total summary and write out the dashboard
     StatsParser(data=total_summary, webdir=metisdashboardpath).do()
+    os.system("msummary")
     os.system("chmod -R 755 {}".format(metisdashboardpath))
     if task.complete():
         print ""
         print "Job={} finished".format(job_tag)
         print ""
         break
-    time.sleep(30)
+
+    print 'Press Ctrl-C to force update, otherwise will sleep for 30 seconds'
+    try:
+        for i in range(0,30):
+            sleep(1) # could use a backward counter to be preeety :)
+    except KeyboardInterrupt:
+        raw_input("Press Enter to force update, or Ctrl-C to quit.")
+        print "Force updating..."
