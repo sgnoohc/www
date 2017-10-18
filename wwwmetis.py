@@ -1,5 +1,19 @@
 #!/bin/env python
 
+################################
+# Job tag and output hadoop path
+################################
+job_tag = "v16_skim"
+hadoop_path = "metis/wwwlooper/{}".format(job_tag)
+
+
+
+###################################################################################################################
+###################################################################################################################
+# Below are the Metis submission code that users do not have to care about.
+###################################################################################################################
+###################################################################################################################
+
 import time
 import json
 import metis
@@ -20,7 +34,7 @@ anadir = os.getenv("ANALYSIS_BASE")
 scriptsdir = os.path.join(os.getenv("ANALYSIS_BASE"), "scripts")
 tar_path = os.path.join(wwwdir, "package.tar")
 targzpath = tar_path + ".gz"
-metispath = os.path.dirname(os.path.dirname(metis.__file__))
+metisdashboardpath = os.path.join(os.path.dirname(os.path.dirname(metis.__file__)), "dashboard")
 
 # Create tarball
 os.system("tar -cf {} *.C *.h".format(tar_path))
@@ -32,10 +46,8 @@ os.chdir(wwwdir)
 os.system("gzip -f {}".format(tar_path))
 
 # Configurations
-job_tag = "v16_skim"
 baby_version = "16"
 exec_path = os.path.join(scriptsdir, "run.sh")
-hadoop_path = "metis/wwwlooper/{}".format(job_tag)
 args = "WWW_ScanChain.C output.root t -1 doskim"
 total_summary = {}
 
@@ -61,8 +73,8 @@ while True:
     # save some information for the dashboard
     total_summary["WWW_v0_1_{}_{}".format(baby_version, job_tag)] = task.get_task_summary()
     # parse the total summary and write out the dashboard
-    StatsParser(data=total_summary, webdir=metispath).do()
-    os.system("chmod -R 755 {}".format(metispath))
+    StatsParser(data=total_summary, webdir=metisdashboardpath).do()
+    os.system("chmod -R 755 {}".format(metisdashboardpath))
     if task.complete():
         print ""
         print "Job={} finished".format(job_tag)
