@@ -13,3 +13,6 @@
 [submodule "ProjectMetis"]
 	path = ProjectMetis
 	url = git@github.com:aminnj/ProjectMetis.git
+[submodule "CORE"]
+	path = CORE
+	url = git@github.com:cmstas/CORE.git
