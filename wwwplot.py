@@ -237,10 +237,12 @@ def drawclosure(histname, histname_fakepred, options={}):
 
 if __name__ == "__main__":
 
-    #drawbytype("MjjSBPRVRSSPred_counter", options={"output_name" : "MjjSBPRVRSSPred_counter.pdf",})
-    #drawbytype("MjjSBVRSSPred_counter", options={"output_name" : "MjjSBVRSSPred_counter.pdf",})
-    #drawbytype("MjjSBPRVRSSMMPred_met", options={"output_name" : "MjjSBPRVRSSMMPred_met.pdf", "nbin" : 15, "ratio_xaxis_title" : "MET [GeV]", "ratio_range" : [0., 3.]})
+    drawbyproc("SS_counter", options={"output_name": "plots/SS_counter.png"})
+
+    drawbytype("MjjSBPRVRSSPred_counter", options={"output_name" : "MjjSBPRVRSSPred_counter.pdf",})
+    drawbytype("MjjSBPRVRSSMMPred_met", options={"output_name" : "MjjSBPRVRSSMMPred_met.pdf", "nbin" : 15, "ratio_xaxis_title" : "MET [GeV]", "ratio_range" : [0., 3.]})
     #drawbytype("SSPred_counter", options={"output_name" : "SSPred_counter.pdf",})
+    #drawbytype("MjjSBVRSSPred_counter", options={"output_name" : "MjjSBVRSSPred_counter.pdf",})
     #drawbytype("PRVRSSPred_counter", options={"output_name" : "PRVRSSPred_counter.pdf",})
     #drawbyproc("PRARSS_counter", options={"output_name" : "PRARSS_counter.pdf",})
     #drawbyproc("PRARSS_closure_counter", options={"output_name" : "PRARSS_closure_counter.pdf",})

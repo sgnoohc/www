@@ -280,8 +280,8 @@ void fillHistograms( RooUtil::AutoHist& hists, TString prefix, int regionid, int
 {
 
     // Print event lists
-    if ( wwwbaby.isData() )
-        printevent( prefix );
+//    if ( wwwbaby.isData() )
+//        printevent( prefix );
 
     // Sample categories (e.g. Z, DY.. or fake, trueSS etc.)
     int sample_priority = -1;
