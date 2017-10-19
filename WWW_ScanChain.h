@@ -16,9 +16,6 @@
 using namespace std;
 using namespace RooUtil;
 
-#define MAXOBJ 3
-#define NSYST 3
-
 void ScanChain(TChain* chain, TString output_name, TString optstr, int nevents = -1);
 
 #include "analysis.C"

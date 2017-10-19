@@ -82,8 +82,10 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
             "lep_mc_Id",
             "lep_motherIdSS",
             "lep_p4*",
+            "lep_pass_VVV_cutbased_fo",
             "lep_pass_VVV_cutbased_fo_noiso",
             "lep_pass_VVV_cutbased_tight",
+            "lep_pass_VVV_cutbased_tight_noiso",
             "lep_pass_VVV_cutbased_veto",
             "lep_pass_VVV_cutbased_veto_noiso",
             "lep_pdgId",
@@ -144,7 +146,7 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         // -~-~-~-~-~-~-~-~-~-~-~-
         // Do analysis here
         // -~-~-~-~-~-~-~-~-~-~-~-
-        doAnalysis(hists, doskim);
+        doAnalysis(hists);
     }
 
     if (doskim) { looper.saveSkim(); }
