@@ -3,8 +3,8 @@
 
 void doAnalysis(RooUtil::AutoHist&);
 std::vector<TString> prefix(TString reg);
-const char* prefixType(TString reg);
-const char* prefixProc(TString reg);
+TString prefixType(TString reg);
+TString prefixProc(TString reg);
 void printevent( TString );
 
 //_________________________________________________________________________________________________
@@ -24,7 +24,7 @@ void doAnalysis(RooUtil::AutoHist& hists)
                 // N-1 W mass Mjj cut
                 if (passSSEE("TightLepton", false, true))
                 {
-                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj")), wgt, 180, 0., 160., NSYST, 0, NSYST);
+                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj").Data()), wgt, 180, 0., 160., NSYST, 0, NSYST);
                 }
             }
             if (isSSEM())
@@ -34,7 +34,7 @@ void doAnalysis(RooUtil::AutoHist& hists)
                 // N-1 W mass Mjj cut
                 if (passSSEM("TightLepton", false, true))
                 {
-                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj")), wgt, 180, 0., 160., NSYST, 0, NSYST);
+                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj").Data()), wgt, 180, 0., 160., NSYST, 0, NSYST);
                 }
             }
             if (isSSMM())
@@ -44,13 +44,14 @@ void doAnalysis(RooUtil::AutoHist& hists)
                 // N-1 W mass Mjj cut
                 if (passSSMM("TightLepton", false, true))
                 {
-                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj")), wgt, 180, 0., 160., NSYST, 0, NSYST);
+                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj").Data()), wgt, 180, 0., 160., NSYST, 0, NSYST);
                 }
             }
         }
         // is 3l channel?
-        else if (lepidx["VetoLepton"].size() == 3)
+        else if (lepidx["VetoLepton"].size() > 2)
         {
+            if (passWZCR()) printevent("WZCR");
         }
     }
 }
@@ -80,17 +81,19 @@ std::vector<TString> prefix(TString reg)
 }
 
 //_________________________________________________________________________________________________
-const char* prefixType(TString reg)
+TString prefixType(TString reg)
 {
     std::vector<TString> arr = prefix(reg);
-    return "_" + arr[1] + "_" + arr[2] + "_";
+    TString output = TString::Format("_%s_%s_", arr[1].Data(), arr[2].Data());
+    return output.Data();
 }
 
 //_________________________________________________________________________________________________
-const char* prefixProc(TString reg)
+TString prefixProc(TString reg)
 {
     std::vector<TString> arr = prefix(reg);
-    return arr[0] + "_" + "_" + arr[2] + "_";
+    TString output = TString::Format("%s__%s_", arr[0].Data(), arr[2].Data());
+    return output.Data();
 }
 
 //_________________________________________________________________________________________________
