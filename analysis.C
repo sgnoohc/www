@@ -1,6 +1,18 @@
 
+void doAnalysis(RooUtil::AutoHist&);
+
+//_________________________________________________________________________________________________
+void doAnalysis(RooUtil::AutoHist& hists)
+{
+    // is SS channel?
+    // N-1 WmassMjj
+    if (passSSEE(false, true))
+    if (passSSEM(false, true))
+    if (passSSMM(false, true))
+}
+
 void doClosure( RooUtil::AutoHist& );
-bool doAnalysis( RooUtil::AutoHist&, bool doskim );
+bool doAnalysisBak( RooUtil::AutoHist&, bool doskim );
 
 void fillHistograms( RooUtil::AutoHist&, TString, int regionid, int isyst );
 void fillHistogramsFull( RooUtil::AutoHist&, TString, TString, TString, int regionid, int isyst );
@@ -10,7 +22,78 @@ void fillWWWHistograms( RooUtil::AutoHist&, TString, int );
 
 void printevent( TString );
 
-//void doTmpAnalysis( RooUtil::AutoHist& hists );
+//_________________________________________________________________________________________________
+bool doAnalysisBak( RooUtil::AutoHist& hists, bool doskim )
+{
+    bool passed = false;
+    for ( int isyst = 0; isyst < NSYST; ++isyst )
+    {
+        if ( passSSEE              () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEE"             , 0 , isyst ); }
+        if ( passSSEM              () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEM"             , 1 , isyst ); }
+        if ( passSSMM              () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSMM"             , 2 , isyst ); }
+        if ( pass3L0SFOS           () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "3L0SFOS"          , 3 , isyst ); }
+        if ( pass3L1SFOS           () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "3L1SFOS"          , 4 , isyst ); }
+        if ( pass3L2SFOS           () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "3L2SFOS"          , 5 , isyst ); }
+        if ( passBTagVRSSEE        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEE"       , 6 , isyst ); }
+        if ( passBTagVRSSEM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEM"       , 7 , isyst ); }
+        if ( passBTagVRSSMM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSMM"       , 8 , isyst ); }
+        if ( passBTagARSSEE        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEE"       , 9 , isyst ); }
+        if ( passBTagARSSEM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEM"       , 10, isyst ); }
+        if ( passBTagARSSMM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSMM"       , 11, isyst ); }
+        if ( passSSAREE            () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREE"           , 12, isyst ); }
+        if ( passSSAREM            () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREM"           , 13, isyst ); }
+        if ( passSSARMM            () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSARMM"           , 14, isyst ); }
+        if ( passMjjSBVRSSEE       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEE"      , 15, isyst ); }
+        if ( passMjjSBVRSSEM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEM"      , 16, isyst ); }
+        if ( passMjjSBVRSSMM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSMM"      , 17, isyst ); }
+        if ( passMjjSBARSSEE       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEE"      , 18, isyst ); }
+        if ( passMjjSBARSSEM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEM"      , 19, isyst ); }
+        if ( passMjjSBARSSMM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSMM"      , 20, isyst ); }
+        if ( passSSEEPred          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEEPred"         , 21, isyst ); }
+        if ( passSSEMPred          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEMPred"         , 22, isyst ); }
+        if ( passSSMMPred          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSMMPred"         , 23, isyst ); }
+        if ( passSSAREEPred        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREEPred"       , 21, isyst ); }
+        if ( passSSAREMPred        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREMPred"       , 22, isyst ); }
+        if ( passSSARMMPred        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSARMMPred"       , 23, isyst ); }
+        if ( passBTagVRSSEEPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEEPred"   , 24, isyst ); }
+        if ( passBTagVRSSEMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEMPred"   , 25, isyst ); }
+        if ( passBTagVRSSMMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSMMPred"   , 26, isyst ); }
+        if ( passBTagARSSEEPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEEPred"   , 24, isyst ); }
+        if ( passBTagARSSEMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEMPred"   , 25, isyst ); }
+        if ( passBTagARSSMMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSMMPred"   , 26, isyst ); }
+        if ( passMjjSBVRSSEEPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEEPred"  , 27, isyst ); }
+        if ( passMjjSBVRSSEMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEMPred"  , 28, isyst ); }
+        if ( passMjjSBVRSSMMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSMMPred"  , 29, isyst ); }
+        if ( passMjjSBARSSEEPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEEPred"  , 27, isyst ); }
+        if ( passMjjSBARSSEMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEMPred"  , 28, isyst ); }
+        if ( passMjjSBARSSMMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSMMPred"  , 29, isyst ); }
+        if ( passMjjSBPRVRSSEE     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEE"    , 30, isyst ); }
+        if ( passMjjSBPRVRSSEM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEM"    , 31, isyst ); }
+        if ( passMjjSBPRVRSSMM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSMM"    , 32, isyst ); }
+        if ( passMjjSBPRARSSEE     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEE"    , 33, isyst ); }
+        if ( passMjjSBPRARSSEM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEM"    , 34, isyst ); }
+        if ( passMjjSBPRARSSMM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSMM"    , 35, isyst ); }
+        if ( passMjjSBPRVRSSEEPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEEPred", 36, isyst ); }
+        if ( passMjjSBPRVRSSEMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEMPred", 37, isyst ); }
+        if ( passMjjSBPRVRSSMMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSMMPred", 38, isyst ); }
+        if ( passMjjSBPRARSSEEPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEEPred", 36, isyst ); }
+        if ( passMjjSBPRARSSEMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEMPred", 37, isyst ); }
+        if ( passMjjSBPRARSSMMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSMMPred", 38, isyst ); }
+        if ( passPRVRSSEE          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEE"         , 39, isyst ); }
+        if ( passPRVRSSEM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEM"         , 40, isyst ); }
+        if ( passPRVRSSMM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSMM"         , 41, isyst ); }
+        if ( passPRARSSEE          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEE"         , 42, isyst ); }
+        if ( passPRARSSEM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEM"         , 43, isyst ); }
+        if ( passPRARSSMM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSMM"         , 44, isyst ); }
+        if ( passPRVRSSEEPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEEPred"     , 45, isyst ); }
+        if ( passPRVRSSEMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEMPred"     , 46, isyst ); }
+        if ( passPRVRSSMMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSMMPred"     , 47, isyst ); }
+        if ( passPRARSSEEPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEEPred"     , 45, isyst ); }
+        if ( passPRARSSEMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEMPred"     , 46, isyst ); }
+        if ( passPRARSSMMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSMMPred"     , 47, isyst ); }
+    }
+    return passed;
+}
 
 //_________________________________________________________________________________________________
 void fillLepHistograms( RooUtil::AutoHist& hists, TString categ, TString name, TString prefix, int isyst )
@@ -196,79 +279,6 @@ void doClosure(RooUtil::AutoHist& hists)
         //    }
         //}
     }
-}
-
-//_________________________________________________________________________________________________
-bool doAnalysis( RooUtil::AutoHist& hists, bool doskim )
-{
-    bool passed = false;
-    for ( int isyst = 0; isyst < NSYST; ++isyst )
-    {
-        if ( passSSEE              () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEE"             , 0 , isyst ); }
-        if ( passSSEM              () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEM"             , 1 , isyst ); }
-        if ( passSSMM              () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSMM"             , 2 , isyst ); }
-        if ( pass3L0SFOS           () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "3L0SFOS"          , 3 , isyst ); }
-        if ( pass3L1SFOS           () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "3L1SFOS"          , 4 , isyst ); }
-        if ( pass3L2SFOS           () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "3L2SFOS"          , 5 , isyst ); }
-        if ( passBTagVRSSEE        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEE"       , 6 , isyst ); }
-        if ( passBTagVRSSEM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEM"       , 7 , isyst ); }
-        if ( passBTagVRSSMM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSMM"       , 8 , isyst ); }
-        if ( passBTagARSSEE        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEE"       , 9 , isyst ); }
-        if ( passBTagARSSEM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEM"       , 10, isyst ); }
-        if ( passBTagARSSMM        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSMM"       , 11, isyst ); }
-        if ( passSSAREE            () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREE"           , 12, isyst ); }
-        if ( passSSAREM            () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREM"           , 13, isyst ); }
-        if ( passSSARMM            () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSARMM"           , 14, isyst ); }
-        if ( passMjjSBVRSSEE       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEE"      , 15, isyst ); }
-        if ( passMjjSBVRSSEM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEM"      , 16, isyst ); }
-        if ( passMjjSBVRSSMM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSMM"      , 17, isyst ); }
-        if ( passMjjSBARSSEE       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEE"      , 18, isyst ); }
-        if ( passMjjSBARSSEM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEM"      , 19, isyst ); }
-        if ( passMjjSBARSSMM       () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSMM"      , 20, isyst ); }
-        if ( passSSEEPred          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEEPred"         , 21, isyst ); }
-        if ( passSSEMPred          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSEMPred"         , 22, isyst ); }
-        if ( passSSMMPred          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSMMPred"         , 23, isyst ); }
-        if ( passSSAREEPred        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREEPred"       , 21, isyst ); }
-        if ( passSSAREMPred        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSAREMPred"       , 22, isyst ); }
-        if ( passSSARMMPred        () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "SSARMMPred"       , 23, isyst ); }
-        if ( passBTagVRSSEEPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEEPred"   , 24, isyst ); }
-        if ( passBTagVRSSEMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSEMPred"   , 25, isyst ); }
-        if ( passBTagVRSSMMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagVRSSMMPred"   , 26, isyst ); }
-        if ( passBTagARSSEEPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEEPred"   , 24, isyst ); }
-        if ( passBTagARSSEMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSEMPred"   , 25, isyst ); }
-        if ( passBTagARSSMMPred    () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "BTagARSSMMPred"   , 26, isyst ); }
-        if ( passMjjSBVRSSEEPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEEPred"  , 27, isyst ); }
-        if ( passMjjSBVRSSEMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSEMPred"  , 28, isyst ); }
-        if ( passMjjSBVRSSMMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBVRSSMMPred"  , 29, isyst ); }
-        if ( passMjjSBARSSEEPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEEPred"  , 27, isyst ); }
-        if ( passMjjSBARSSEMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSEMPred"  , 28, isyst ); }
-        if ( passMjjSBARSSMMPred   () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBARSSMMPred"  , 29, isyst ); }
-        if ( passMjjSBPRVRSSEE     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEE"    , 30, isyst ); }
-        if ( passMjjSBPRVRSSEM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEM"    , 31, isyst ); }
-        if ( passMjjSBPRVRSSMM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSMM"    , 32, isyst ); }
-        if ( passMjjSBPRARSSEE     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEE"    , 33, isyst ); }
-        if ( passMjjSBPRARSSEM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEM"    , 34, isyst ); }
-        if ( passMjjSBPRARSSMM     () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSMM"    , 35, isyst ); }
-        if ( passMjjSBPRVRSSEEPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEEPred", 36, isyst ); }
-        if ( passMjjSBPRVRSSEMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSEMPred", 37, isyst ); }
-        if ( passMjjSBPRVRSSMMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRVRSSMMPred", 38, isyst ); }
-        if ( passMjjSBPRARSSEEPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEEPred", 36, isyst ); }
-        if ( passMjjSBPRARSSEMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSEMPred", 37, isyst ); }
-        if ( passMjjSBPRARSSMMPred () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "MjjSBPRARSSMMPred", 38, isyst ); }
-        if ( passPRVRSSEE          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEE"         , 39, isyst ); }
-        if ( passPRVRSSEM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEM"         , 40, isyst ); }
-        if ( passPRVRSSMM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSMM"         , 41, isyst ); }
-        if ( passPRARSSEE          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEE"         , 42, isyst ); }
-        if ( passPRARSSEM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEM"         , 43, isyst ); }
-        if ( passPRARSSMM          () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSMM"         , 44, isyst ); }
-        if ( passPRVRSSEEPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEEPred"     , 45, isyst ); }
-        if ( passPRVRSSEMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSEMPred"     , 46, isyst ); }
-        if ( passPRVRSSMMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRVRSSMMPred"     , 47, isyst ); }
-        if ( passPRARSSEEPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEEPred"     , 45, isyst ); }
-        if ( passPRARSSEMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSEMPred"     , 46, isyst ); }
-        if ( passPRARSSMMPred      () ) { passed = true; if ( !doskim ) fillHistograms ( hists, "PRARSSMMPred"     , 47, isyst ); }
-    }
-    return passed;
 }
 
 //=================================================================================================
