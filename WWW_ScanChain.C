@@ -143,6 +143,12 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
             }
         }
 
+        if (event_list.has(wwwbaby.run(), wwwbaby.lumi(), wwwbaby.evt()))
+            printEvent();
+
+        if (base_optstr.Contains("dosync"))
+            doSync();
+
         // -~-~-~-~-~-~-~-~-~-~-~-
         // Do analysis here
         // -~-~-~-~-~-~-~-~-~-~-~-

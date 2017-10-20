@@ -1,11 +1,55 @@
 #define MAXOBJ 3
 #define NSYST 1
 
+void doSync();
 void doAnalysis(RooUtil::AutoHist&);
 std::vector<TString> prefix(TString reg);
 TString prefixType(TString reg);
 TString prefixProc(TString reg);
 void printevent( TString );
+void fill(RooUtil::AutoHist&, int, TString, float, int, float, float, int, float, float);
+
+//_________________________________________________________________________________________________
+void doSync()
+{
+    // Loop over systematics
+    for (int isyst = 0; isyst < NSYST; isyst++)
+    {
+        float wgt = weight();
+        // is SS channel?
+        if (lepidx["VetoLepton"].size() == 2)
+        {
+            if (isSSEE())
+            {
+                if (passSSEE()) printevent("SSEE");
+                if (passSSAREE()) printevent("SSAREE");
+            }
+            if (isSSEM())
+            {
+                if (passSSEM()) printevent("SSEM");
+                if (passSSAREM()) printevent("SSAREM");
+            }
+            if (isSSMM())
+            {
+                if (passSSMM()) printevent("SSMM");
+                if (passSSARMM()) printevent("SSARMM");
+            }
+        }
+        // is 3l channel?
+        else if (lepidx["VetoLepton"].size() > 2)
+        {
+            if (passWZCR1SFOS()) printevent("WZCR1SFOS");
+            if (passWZCR2SFOS()) printevent("WZCR2SFOS");
+        }
+    }
+}
+
+//_________________________________________________________________________________________________
+void fill(RooUtil::AutoHist& hists, float val, int isyst, TString name, float wgt, int nbin, float xmin, float xmax, int nsyst, float mins, float maxs)
+{
+    hists.fill(val, isyst, Form("%sMjjW", prefixProc("PR").Data())  , wgt, nbin, xmin, xmax, NSYST, mins, maxs);
+    hists.fill(val, isyst, Form("%sMjjW", prefixType("PR").Data())  , wgt, nbin, xmin, xmax, NSYST, mins, NSYST);
+}
 
 //_________________________________________________________________________________________________
 void doAnalysis(RooUtil::AutoHist& hists)
@@ -19,40 +63,94 @@ void doAnalysis(RooUtil::AutoHist& hists)
         {
             if (isSSEE())
             {
-                if (passSSEE()) printevent("SSEE");
-                if (passSSAREE()) printevent("SSAREE");
-                // N-1 W mass Mjj cut
-                if (passSSEE("TightLepton", false, true))
+                if (lepidx["TightLepton"].size() == 2)
                 {
-                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj").Data()), wgt, 180, 0., 160., NSYST, 0, NSYST);
+                    if (passPRVRSSEE())
+                    {
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("PR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixType("PR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixProc("PR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixType("PR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixProc("PR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixType("PR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixProc("PR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixType("PR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                    }
+                    if (passPRARSSEE())
+                    {
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("PredPR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixType("PredPR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixProc("PredPR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixType("PredPR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixProc("PredPR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixType("PredPR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixProc("PredPR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixType("PredPR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                    }
                 }
             }
             if (isSSEM())
             {
-                if (passSSEM()) printevent("SSEM");
-                if (passSSAREM()) printevent("SSAREM");
-                // N-1 W mass Mjj cut
-                if (passSSEM("TightLepton", false, true))
+                if (lepidx["TightLepton"].size() == 2)
                 {
-                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj").Data()), wgt, 180, 0., 160., NSYST, 0, NSYST);
+                    if (passPRVRSSEM())
+                    {
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("PR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixType("PR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixProc("PR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixType("PR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixProc("PR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixType("PR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixProc("PR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixType("PR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                    }
+                    if (passPRARSSEMPred())
+                    {
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("PredPR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixType("PredPR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixProc("PredPR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixType("PredPR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixProc("PredPR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixType("PredPR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixProc("PredPR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixType("PredPR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                    }
                 }
             }
             if (isSSMM())
             {
-                if (passSSMM()) printevent("SSMM");
-                if (passSSARMM()) printevent("SSARMM");
-                // N-1 W mass Mjj cut
-                if (passSSMM("TightLepton", false, true))
+                if (lepidx["TightLepton"].size() == 2)
                 {
-                    hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("Nm1Mjj").Data()), wgt, 180, 0., 160., NSYST, 0, NSYST);
+                    if (passPRVRSSMM())
+                    {
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("PR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixType("PR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixProc("PR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixType("PR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixProc("PR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixType("PR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixProc("PR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixType("PR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                    }
+                    if (passPRARSSMMPred())
+                    {
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixProc("PredPR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(MjjW(), isyst, Form("%sMjjW", prefixType("PredPR").Data())  , wgt, 180, 20., 260., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixProc("PredPR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(Mll(), isyst, Form("%sMll", prefixType("PredPR").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixProc("PredPR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MET(), isyst, Form("%sMET", prefixType("PredPR").Data())  , wgt, 180, 0., 140., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixProc("PredPR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                        hists.fill(MTmax(), isyst, Form("%sMTmax", prefixType("PredPR").Data())  , wgt, 180, 0., 220., NSYST, 0, NSYST);
+                    }
                 }
             }
         }
-        // is 3l channel?
-        else if (lepidx["VetoLepton"].size() > 2)
-        {
-            if (passWZCR()) printevent("WZCR");
-        }
+//        // is 3l channel?
+//        else if (lepidx["VetoLepton"].size() > 2)
+//        {
+//            if (passWZCR()) printevent("WZCR");
+//        }
     }
 }
 
@@ -60,22 +158,24 @@ void doAnalysis(RooUtil::AutoHist& hists)
 std::vector<TString> prefix(TString reg)
 {
     int sample_priority = -1;
-    TString sample_category = sampleCategory( sample_priority );
+    TString sample_category = sampleCategory(sample_priority);
     TString bkg_category = bkgCategory();
-
     // If it's for a prediction the data category is replaced by "fakepred"
-    if ( wwwbaby.isData() && reg.Contains( "AR" ) && reg.Contains( "Pred" ) )
+    if (wwwbaby.isData() && reg.Contains("Pred"))
     {
         sample_category = "fakepred";
         bkg_category = "fakepred";
+        reg.ReplaceAll("Pred", "");
     }
-
+    if (sample_priority != 1)
+    {
+        bkg_category = "nonprio";
+    }
     std::vector<TString> arr;
     arr.push_back(sample_category);
     arr.push_back(bkg_category);
     arr.push_back(reg);
     return arr;
-
 //    TString full_type_prefix =                   "_" + bkg_category + "_" + reg + "_";
 //    TString full_proc_prefix = sample_category + "_"                + "_" + reg + "_";
 }

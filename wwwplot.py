@@ -237,11 +237,16 @@ def drawclosure(histname, histname_fakepred, options={}):
 
 if __name__ == "__main__":
 
-    drawbyproc("SS_counter", options={"output_name": "plots/proc_SS_counter.png"})
-    drawbytype("SS_counter", options={"output_name": "plots/type_SS_counter.png"})
+    drawbytype("PR_MjjW"  , options={"output_name": "plots/typePR_MjjW.png"  , "nbin":12, "blind":True})
+    drawbytype("PR_MET"  , options={"output_name": "plots/typePR_MET.png"  , "nbin":12, "blind":True})
+    drawbytype("PR_Mll"  , options={"output_name": "plots/typePR_Mll.png"  , "nbin":12, "blind":True})
+    drawbytype("PR_MTmax"  , options={"output_name": "plots/typePR_MTmax.png"  , "nbin":12, "blind":True})
 
-    drawbytype("MjjSBPRVRSSPred_counter", options={"output_name" : "plots/MjjSBPRVRSSPred_counter.pdf", })
-    drawbytype("MjjSBPRVRSSMMPred_met", options={"output_name" : "plots/MjjSBPRVRSSMMPred_met.pdf", "nbin" : 15, "ratio_xaxis_title" : "MET [GeV]", "ratio_range" : [0., 3.]})
+    #drawbyproc("SS_counter", options={"output_name": "plots/proc_SS_counter.png"})
+    #drawbytype("SS_counter", options={"output_name": "plots/type_SS_counter.png"})
+
+    #drawbytype("MjjSBPRVRSSPred_counter", options={"output_name" : "plots/MjjSBPRVRSSPred_counter.pdf", })
+    #drawbytype("MjjSBPRVRSSMMPred_met", options={"output_name" : "plots/MjjSBPRVRSSMMPred_met.pdf", "nbin" : 15, "ratio_xaxis_title" : "MET [GeV]", "ratio_range" : [0., 3.]})
     #drawbytype("SSPred_counter", options={"output_name" : "SSPred_counter.pdf",})
     #drawbytype("MjjSBVRSSPred_counter", options={"output_name" : "MjjSBVRSSPred_counter.pdf",})
     #drawbytype("PRVRSSPred_counter", options={"output_name" : "PRVRSSPred_counter.pdf",})
