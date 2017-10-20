@@ -99,6 +99,14 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
             "nisoTrack_mt2_cleaned_VVV_cutbased_veto",
             "nlep_VVV_cutbased_veto",
             "run"
+            "Flag_EcalDeadCellTriggerPrimitiveFilter",
+            "Flag_badChargedCandidateFilter",
+            "Flag_HBHENoiseFilter",
+            "Flag_HBHEIsoNoiseFilter",
+            "Flag_goodVertices",
+            "Flag_eeBadScFilter",
+            "Flag_globalTightHalo2016",
+            "Flag_badMuonFilter"
         }
         );
     }
