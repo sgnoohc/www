@@ -39,6 +39,9 @@ void doSync()
         {
             if (passWZCR1SFOS()) printevent("WZCR1SFOS");
             if (passWZCR2SFOS()) printevent("WZCR2SFOS");
+            if (passSSWZCREE()) printevent("SSWZCREE");
+            if (passSSWZCREM()) printevent("SSWZCREM");
+            if (passSSWZCRMM()) printevent("SSWZCRMM");
         }
     }
 }
@@ -46,6 +49,7 @@ void doSync()
 //_________________________________________________________________________________________________
 void doAnalysis(RooUtil::AutoHist& hists)
 {
+//    ct.clearCache();
     // Loop over systematics
     for (int isyst = 0; isyst < NSYST; isyst++)
     {
@@ -157,32 +161,52 @@ void doAnalysis(RooUtil::AutoHist& hists)
                         hists.fill(get2SFOSMll1(), isyst, Form("%sMSFOS", prefixType("PR3L").Data())  , wgt, 180, 10., 170., NSYST, 0, NSYST);
                     }
                 }
+                if (passSSWZCREE())
+                {
+                    hists.fill(0, isyst, Form("%scount", prefixProc("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                }
+                if (passSSWZCREM())
+                {
+                    hists.fill(1, isyst, Form("%scount", prefixProc("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                }
+                if (passSSWZCRMM())
+                {
+                    hists.fill(2, isyst, Form("%scount", prefixProc("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                }
+                if (passWZCR1SFOS())
+                {
+                    hists.fill(4, isyst, Form("%scount", prefixProc("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                }
+                if (passWZCR2SFOS())
+                {
+                    hists.fill(5, isyst, Form("%scount", prefixProc("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                }
             }
             else if (lepidx["Tight3lLepton"].size() == 2)
             {
                 float wgt = weight(true);
                 if (pass3LAR0SFOS())
                 {
-                    hists.fill(3, isyst, Form("%scount", prefixProc("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
-                    hists.fill(3, isyst, Form("%scount", prefixType("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                    hists.fill(3, isyst, Form("%scount", prefixProc("PredSR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                    hists.fill(3, isyst, Form("%scount", prefixType("PredSR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
                 }
                 if (pass3LAR1SFOS())
                 {
-                    hists.fill(4, isyst, Form("%scount", prefixProc("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
-                    hists.fill(4, isyst, Form("%scount", prefixType("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                    hists.fill(4, isyst, Form("%scount", prefixProc("PredSR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                    hists.fill(4, isyst, Form("%scount", prefixType("PredSR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
                 }
                 if (pass3LAR2SFOS())
                 {
-                    hists.fill(5, isyst, Form("%scount", prefixProc("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
-                    hists.fill(5, isyst, Form("%scount", prefixType("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                    hists.fill(5, isyst, Form("%scount", prefixProc("PredSR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+                    hists.fill(5, isyst, Form("%scount", prefixType("PredSR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
                 }
                 if (pass3LARpresel())
                 {
                     float wgt = weight(true);
                     hists.fill(DPhi3lMET(), isyst, Form("%sDPhi3lMET", prefixProc("PredPR3L").Data())  , wgt, 180, 0., 3.1416, NSYST, 0, NSYST);
                     hists.fill(DPhi3lMET(), isyst, Form("%sDPhi3lMET", prefixType("PredPR3L").Data())  , wgt, 180, 0., 3.1416, NSYST, 0, NSYST);
-                    hists.fill(Pt3l(), isyst, Form("%sPt3l", prefixProc("PredPR3L").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
-                    hists.fill(Pt3l(), isyst, Form("%sPt3l", prefixType("PredPR3L").Data())  , wgt, 180, 0., 180., NSYST, 0, NSYST);
+                    hists.fill(Pt3l(), isyst, Form("%sPt3l", prefixProc("PredPR3L").Data())  , wgt, 180, 0., 120., NSYST, 0, NSYST);
+                    hists.fill(Pt3l(), isyst, Form("%sPt3l", prefixType("PredPR3L").Data())  , wgt, 180, 0., 120., NSYST, 0, NSYST);
                     hists.fill(MET(), isyst, Form("%sMET", prefixProc("PredPR3L").Data())  , wgt, 180, 0., 160., NSYST, 0, NSYST);
                     hists.fill(MET(), isyst, Form("%sMET", prefixType("PredPR3L").Data())  , wgt, 180, 0., 160., NSYST, 0, NSYST);
                     if (getNumSFOS() == 1)

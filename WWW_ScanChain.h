@@ -8,13 +8,14 @@
 #include "rooutil/autohist.h"
 #include "rooutil/eventlist.h"
 #include "rooutil/ttreex.h"
+#include "rooutil/dorky.h"
 #include "WWW_CORE/WWWTree.h"
 #include "WWW_CORE/WWWTools.h"
 
-#include "CORE/Tools/dorky/dorky.h"
 
 using namespace std;
 using namespace RooUtil;
+using namespace www;
 
 void ScanChain(TChain* chain, TString output_name, TString optstr, int nevents = -1);
 

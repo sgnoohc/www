@@ -59,12 +59,12 @@ proc_categs["WWW"]      = "sig"
 proc_categs["Data"]     = "data"
 
 bkg_groups = {}
-bkg_groups["Prompt"]             = [ "trueSS", "true3L" ]
+bkg_groups["Prompt"]             = [ "trueSS", "true3L", "trueWWW" ]
 bkg_groups["Q-flip"]             = [ "chargeflips" ]
 bkg_groups["Lost-Lep"]           = [ "SSLL", "3lLL" ]
 bkg_groups["#gamma#rightarrowl"] = [ "photonfakes", "photondoublefakes", "photontriplefakes", "fakesphotonfakes", "otherphotonfakes" ]
-bkg_groups["Fake"]               = [ "fakes", "doublefakes"]
-#bkg_groups["Fake"]               = [ "fakepred" ]
+#bkg_groups["Fake"]               = [ "fakes", "doublefakes"]
+bkg_groups["Fake"]               = [ "fakepred" ]
 bkg_groups["Others"]             = [ "others" ]
 bkg_groups["Data"]               = [ "data_mm", "data_em", "data_ee", "data_other" ]
 bkg_groups["WWW"]                = [ "www" ]
@@ -237,7 +237,9 @@ def drawclosure(histname, histname_fakepred, options={}):
 
 if __name__ == "__main__":
 
-    drawbytype("SR_count", options={"output_name":"plots/SR_count.png", "blind":True, "print_yield":True, "yield_prec":5})
+    drawbytype("WZCR_count", options={"output_name":"plots/WZCR_count.png", "print_yield":True, "yield_prec":2})
+    drawbytype("SR_count", options={"output_name":"plots/SR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
+    drawbyproc("SR_count", options={"output_name":"plots/procSR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
     drawbytype("PRSS_MjjW"  , options={"output_name": "plots/typePRSS_MjjW.png"  , "nbin":12, "blind":True})
     drawbytype("PRSS_MET"  , options={"output_name": "plots/typePRSS_MET.png"  , "nbin":12, "blind":True})
     drawbytype("PRSS_Mll"  , options={"output_name": "plots/typePRSS_Mll.png"  , "nbin":12, "blind":True})

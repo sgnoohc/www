@@ -3,9 +3,12 @@
 
 #include "WWW_ScanChain.h"
 
+using namespace www;
+
 //_________________________________________________________________________________________________
 void ScanChain(TChain* chain, TString output_name, TString base_optstr, int nevents)
 {
+
     // -~-~-~-~-~-~
     // Event Looper
     // -~-~-~-~-~-~
@@ -129,44 +132,43 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         // If do skim, skim presel
         // -~-~-~-~-~-~-~-~-~-~-~-
         setObjectIndices();
-        if (doskim)
-        {
-            if (
-                (
-                    lepidx["VetoLepton"].size() == 2
-                    && lepidx["TightLepton"].size() >= 1
-                    && jetidx["GoodSSJet"].size() >= 2
-                    && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][0]].pt() >= 30.)
-                    && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][1]].pt() >= 30.)
-                )
-                ||
-                (
-                    lepidx["LooseLepton"].size() >= 3
-                    && lepidx["Tight3lLepton"].size() >= 2
-                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][0]].pt() >= 25.)
-                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][1]].pt() >= 20.)
-                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][2]].pt() >= 20.)
-                )
-            )
-            {
-                looper.fillSkim();
-                continue;
-            }
-        }
-
-        if (event_list.has(wwwbaby.run(), wwwbaby.lumi(), wwwbaby.evt()))
-            printEvent();
-
-        if (base_optstr.Contains("dosync"))
-            doSync();
-
-        // -~-~-~-~-~-~-~-~-~-~-~-
-        // Do analysis here
-        // -~-~-~-~-~-~-~-~-~-~-~-
-        doAnalysis(hists);
+//        if (doskim)
+//        {
+//            if (
+//                (
+//                    lepidx["VetoLepton"].size() == 2
+//                    && lepidx["TightLepton"].size() >= 1
+//                    && jetidx["GoodSSJet"].size() >= 2
+//                    && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][0]].pt() >= 30.)
+//                    && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][1]].pt() >= 30.)
+//                )
+//                ||
+//                (
+//                    lepidx["LooseLepton"].size() >= 3
+//                    && lepidx["Tight3lLepton"].size() >= 2
+//                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][0]].pt() >= 25.)
+//                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][1]].pt() >= 20.)
+//                    && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][2]].pt() >= 20.)
+//                )
+//            )
+//            {
+//                looper.fillSkim();
+//                continue;
+//            }
+//        }
+//
+//        if (event_list.has(wwwbaby.run(), wwwbaby.lumi(), wwwbaby.evt()))
+//            printEvent();
+//
+//        if (base_optstr.Contains("dosync"))
+//            doSync();
+//
+//        if (base_optstr.Contains("doana"))
+//            doAnalysis(hists);
     }
 
     if (doskim) { looper.saveSkim(); }
     else { hists.save(output_name); }
+
 }
 // eof
