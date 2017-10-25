@@ -43,3 +43,8 @@ So the user should uncomment for full result.
     run.sh -c WWW_ScanChain.C output.root t -1 dosync '/hadoop/cms/store/user/bhashemi/AutoTwopler_babies/merged/VVV/WWW_v0.1.16/skim/ttbar_1ltop_mgmlm_ext1*.root'
     run.sh -c WWW_ScanChain.C output.root t -1 dosync '/hadoop/cms/store/user/bhashemi/AutoTwopler_babies/merged/VVV/WWW_v0.1.16/skim/wz_3l*.root'
 
+
+## To run over all sample and making some plots with a skim created around mid october
+
+    run.sh -c WWW_ScanChain.C output.root t -1 doana /home/users/phchang/public_html/analysis/www/code/www/WWW_v0_1_16_v16_skim.root
+    python wwwplot.py
