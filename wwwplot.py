@@ -4,6 +4,10 @@ from plottery import plottery as p
 import ROOT as r
 import plottery_wrapper as pw
 
+import os
+if not os.path.isdir("plots"):
+    os.makedirs("plots")
+
 tfile = r.TFile("output.root")
 hists = {}
 
@@ -237,7 +241,7 @@ def drawclosure(histname, histname_fakepred, options={}):
 
 if __name__ == "__main__":
 
-    drawbytype("WZCR_count", options={"output_name":"plots/WZCR_count.png", "print_yield":True, "yield_prec":2})
+    #drawbytype("WZCR_count", options={"output_name":"plots/WZCR_count.png", "print_yield":True, "yield_prec":2})
     drawbytype("SR_count", options={"output_name":"plots/SR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
     drawbyproc("SR_count", options={"output_name":"plots/procSR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
     drawbytype("PRSS_MjjW"  , options={"output_name": "plots/typePRSS_MjjW.png"  , "nbin":12, "blind":True})
