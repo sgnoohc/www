@@ -121,7 +121,7 @@ void doAnalysis(RooUtil::AutoHist& hists)
         }
         else if (lepidx["VetoLepton"].size() > 2)
         {
-            if (lepidx["Tight3lLepton"].size() == 3)
+            if (lepidx["TightLepton"].size() == 3)
             {
                 float wgt = weight();
                 if (pass3L0SFOS())
@@ -182,7 +182,7 @@ void doAnalysis(RooUtil::AutoHist& hists)
                     hists.fill(5, isyst, Form("%scount", prefixProc("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
                 }
             }
-            else if (lepidx["Tight3lLepton"].size() == 2)
+            else if (lepidx["TightLepton"].size() == 2)
             {
                 float wgt = weight(true);
                 if (pass3LAR0SFOS())
