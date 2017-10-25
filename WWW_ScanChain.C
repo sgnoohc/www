@@ -112,7 +112,18 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         "ngenLepFromTau",
         "nisoTrack_mt2_cleaned_VVV_cutbased_veto",
         "nVert",
-        "run"
+        "run",
+        "nlep",
+        "lep_tightCharge",
+        "jets_up_p4",
+        "jets_up_csv",
+        "jets_dn_p4",
+        "jets_dn_csv",
+        "met_T1CHS_miniAOD_CORE_up_pt",
+        "met_T1CHS_miniAOD_CORE_up_phi",
+        "met_T1CHS_miniAOD_CORE_dn_pt",
+        "met_T1CHS_miniAOD_CORE_dn_phi",
+        "gen_ht"
         }
         );
     }
