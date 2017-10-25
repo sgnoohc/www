@@ -6,7 +6,7 @@
 
 # NOTE: If you want to resubmit the skimming job, you need to delete $ANALYSIS_BASE/tasks and hadoop_path output path
 
-job_tag = "v16_skim"
+job_tag = "v16_skim_v2"
 hadoop_path = "metis/wwwlooper/{}".format(job_tag) # The output goes to /hadoop/cms/store/user/$USER/"hadoop_path"
 
 
@@ -45,7 +45,7 @@ metisdashboardpath = os.path.join(os.path.dirname(os.path.dirname(metis.__file__
 # Create tarball
 os.system("tar -cf {} *.C *.h".format(tar_path))
 os.chdir(anadir)
-os.system("tar -rf {} rooutil/rooutil.so WWW_CORE/WWW_CORE.so CORE/CMS3_CORE.so CORE/Tools/dorky/dorky.h rooutil/*.h WWW_CORE/*.h".format(tar_path))
+os.system("tar -rf {} rooutil/rooutil.so WWW_CORE/WWW_CORE.so rooutil/*.h WWW_CORE/*.h".format(tar_path))
 os.chdir(scriptsdir)
 os.system("tar -rf {} *.sh *.C ".format(tar_path))
 os.chdir(wwwdir)

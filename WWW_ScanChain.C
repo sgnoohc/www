@@ -141,6 +141,8 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
                     && jetidx["GoodSSJet"].size() >= 2
                     && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][0]].pt() >= 30.)
                     && ( wwwbaby.lep_p4()[lepidx["VetoLepton"][1]].pt() >= 30.)
+                    && ( wwwbaby.lep_pdgId()[lepidx["VetoLepton"][0]]
+                         * wwwbaby.lep_pdgId()[lepidx["VetoLepton"][1]] >   0 )
                 )
                 ||
                 (
