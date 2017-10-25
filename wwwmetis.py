@@ -6,7 +6,7 @@
 
 # NOTE: If you want to resubmit the skimming job, you need to delete $ANALYSIS_BASE/tasks and hadoop_path output path
 
-job_tag = "v16_skim_v2"
+job_tag = "v16_skim_v2.1"
 hadoop_path = "metis/wwwlooper/{}".format(job_tag) # The output goes to /hadoop/cms/store/user/$USER/"hadoop_path"
 
 
@@ -80,7 +80,7 @@ while True:
     total_summary["WWW_v0_1_{}_{}".format(baby_version, job_tag)] = task.get_task_summary()
     # parse the total summary and write out the dashboard
     StatsParser(data=total_summary, webdir=metisdashboardpath).do()
-    os.system("msummary")
+    os.system("msummary | tee summary.txt")
     os.system("chmod -R 755 {}".format(metisdashboardpath))
     if task.complete():
         print ""
