@@ -158,7 +158,7 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
                 ||
                 (
                     lepidx["LooseLepton"].size() >= 3
-                    && lepidx["Tight3lLepton"].size() >= 2
+                    && lepidx["TightLepton"].size() >= 2
                     && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][0]].pt() >= 25.)
                     && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][1]].pt() >= 20.)
                     && ( wwwbaby.lep_p4()[lepidx["LooseLepton"][2]].pt() >= 20.)
