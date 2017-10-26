@@ -101,5 +101,8 @@ if not os.path.isfile("WWW_CORE/rename"):
     os.chdir("WWW_CORE/")
     os.system("make rename")
     os.chdir("../")
-os.system("./WWW_CORE/rename mapping.txt /hadoop/cms/store/user/$USER/{}/WWW_v0_1_{}_{}".format(hadoop_path, baby_version, job_tag)})
+import getpass
+username = getpass.getuser()
+os.system("./WWW_CORE/rename mapping.txt /hadoop/cms/store/user/{}/{}/WWW_v0_1_{}_{}/".format(username, hadoop_path, baby_version, job_tag)})
+
 
