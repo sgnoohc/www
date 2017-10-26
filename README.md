@@ -49,6 +49,8 @@ So the user should uncomment for full result.
     run.sh -c WWW_ScanChain.C output.root t -1 doana /hadoop/cms/store/user/phchang/metis/wwwlooper/v16_skim_v2_2/WWW_v0_1_16_v16_skim_v2_2_allmerged.root
     python wwwplot.py
 
+    NOTE: it runs faster if you copy it from hadoop to home area. (it's 3.6GB though)
+
 ## Renaming of skimmed samples
 
 The code resides in ```WWW_CORE```.  
