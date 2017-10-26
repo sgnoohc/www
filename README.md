@@ -46,7 +46,7 @@ So the user should uncomment for full result.
 
 ## To run over all sample and making some plots with a skim created around mid october
 
-    run.sh -c WWW_ScanChain.C output.root t -1 doana /home/users/phchang/public_html/analysis/www/code/www/WWW_v0_1_16_v16_skim.root
+    run.sh -c WWW_ScanChain.C output.root t -1 doana /hadoop/cms/store/user/phchang/metis/wwwlooper/v16_skim_v2_2/WWW_v0_1_16_v16_skim_v2_2_allmerged.root
     python wwwplot.py
 
 ## Renaming of skimmed samples
