@@ -241,28 +241,14 @@ def drawclosure(histname, histname_fakepred, options={}):
 
 if __name__ == "__main__":
 
-    #drawbytype("WZCR_count", options={"output_name":"plots/WZCR_count.png", "print_yield":True, "yield_prec":2})
-    drawbytype("SR_count", options={"output_name":"plots/SR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
-    drawbyproc("SR_count", options={"output_name":"plots/procSR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
-    drawbytype("PRSS_MjjW"  , options={"output_name": "plots/typePRSS_MjjW.png"  , "nbin":12, "blind":True})
-    drawbytype("PRSS_MET"  , options={"output_name": "plots/typePRSS_MET.png"  , "nbin":12, "blind":True})
-    drawbytype("PRSS_Mll"  , options={"output_name": "plots/typePRSS_Mll.png"  , "nbin":12, "blind":True})
-    drawbytype("PRSS_MTmax"  , options={"output_name": "plots/typePRSS_MTmax.png"  , "nbin":12, "blind":True})
+    drawbytype("PRSS_MjjW"  , options={"output_name": "plots/fig2_a_typePRSS_MjjW.png"  , "nbin":12, "blind":True})
+    drawbytype("PRSS_Mll"  , options={"output_name": "plots/fig2_b_typePRSS_Mll.png"  , "nbin":12, "blind":True})
+    drawbytype("PRSS_MET"  , options={"output_name": "plots/fig2_c_typePRSS_MET.png"  , "nbin":12, "blind":True})
+    drawbytype("PRSS_MTmax"  , options={"output_name": "plots/fig2_d_typePRSS_MTmax.png"  , "nbin":12, "blind":True})
 
-    drawbytype("PR3L_DPhi3lMET"  , options={"output_name": "plots/typePR3L_DPhi3lMET.png"  , "nbin":12, "blind":True})
-    drawbytype("PR3L_MET"  , options={"output_name": "plots/typePR3L_MET.png"  , "nbin":12, "blind":True})
-    drawbytype("PR3L_MSFOS"  , options={"output_name": "plots/typePR3L_MSFOS.png"  , "nbin":12, "blind":True})
-    drawbytype("PR3L_Pt3l"  , options={"output_name": "plots/typePR3L_Pt3l.png"  , "nbin":12, "blind":True})
+    drawbytype("PR3L_DPhi3lMET"  , options={"output_name": "plots/fig3_a_typePR3L_DPhi3lMET.png"  , "nbin":12, "blind":True})
+    drawbytype("PR3L_MET"  , options={"output_name": "plots/fig3_b_typePR3L_MET.png"  , "nbin":12, "blind":True})
+    drawbytype("PR3L_Pt3l"  , options={"output_name": "plots/fig3_c_typePR3L_Pt3l.png"  , "nbin":12, "blind":True})
+    drawbytype("PR3L_MSFOS"  , options={"output_name": "plots/fig3_d_typePR3L_MSFOS.png"  , "nbin":12, "blind":True})
 
-    #drawbyproc("SS_counter", options={"output_name": "plots/proc_SS_counter.png"})
-    #drawbytype("SS_counter", options={"output_name": "plots/type_SS_counter.png"})
-
-    #drawbytype("MjjSBPRVRSSPred_counter", options={"output_name" : "plots/MjjSBPRVRSSPred_counter.pdf", })
-    #drawbytype("MjjSBPRVRSSMMPred_met", options={"output_name" : "plots/MjjSBPRVRSSMMPred_met.pdf", "nbin" : 15, "ratio_xaxis_title" : "MET [GeV]", "ratio_range" : [0., 3.]})
-    #drawbytype("SSPred_counter", options={"output_name" : "SSPred_counter.pdf",})
-    #drawbytype("MjjSBVRSSPred_counter", options={"output_name" : "MjjSBVRSSPred_counter.pdf",})
-    #drawbytype("PRVRSSPred_counter", options={"output_name" : "PRVRSSPred_counter.pdf",})
-    #drawbyproc("PRARSS_counter", options={"output_name" : "PRARSS_counter.pdf",})
-    #drawbyproc("PRARSS_closure_counter", options={"output_name" : "PRARSS_closure_counter.pdf",})
-    #drawclosure("PRVRSS_counter", "PRVRSSPred_counter")
-    #drawclosure("SS_counter", "SSPred_counter")
+    drawbytype("SR_count", options={"output_name":"plots/fig4_SR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
