@@ -123,7 +123,12 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         "met_T1CHS_miniAOD_CORE_up_phi",
         "met_T1CHS_miniAOD_CORE_dn_pt",
         "met_T1CHS_miniAOD_CORE_dn_phi",
-        "gen_ht"
+        "gen_ht",
+        "weight_btagsf",
+        "weight_btagsf_heavy_UP",
+        "weight_btagsf_heavy_DN",
+        "weight_btagsf_light_UP",
+        "weight_btagsf_light_DN"
         }
         );
     }
