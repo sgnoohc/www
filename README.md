@@ -48,3 +48,14 @@ So the user should uncomment for full result.
 
     run.sh -c WWW_ScanChain.C output.root t -1 doana /home/users/phchang/public_html/analysis/www/code/www/WWW_v0_1_16_v16_skim.root
     python wwwplot.py
+
+## Renaming of skimmed samples
+
+The code resides in ```WWW_CORE```.  
+
+    cd WWW_CORE/
+    make rename
+
+Then,
+
+    ./rename ../mapping.txt /hadoop/cms/store/path/to/where/the/metis/skim/output/is
