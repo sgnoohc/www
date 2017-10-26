@@ -252,3 +252,4 @@ if __name__ == "__main__":
     drawbytype("PR3L_MSFOS"  , options={"output_name": "plots/fig3_d_typePR3L_MSFOS.png"  , "nbin":12, "blind":True})
 
     drawbytype("SR_count", options={"output_name":"plots/fig4_SR_count.png", "blind":True, "print_yield":True, "yield_prec":2})
+    drawbyproc("SR_count", options={"output_name":"plots/fig4_SR_count_proc.png", "blind":True, "print_yield":True, "yield_prec":2})
