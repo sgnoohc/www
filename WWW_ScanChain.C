@@ -112,6 +112,7 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         "ngenLepFromTau",
         "nisoTrack_mt2_cleaned_VVV_cutbased_veto",
         "nVert",
+        "nTrueInt",
         "run",
         "nlep",
         "lep_tightCharge",
