@@ -1,11 +1,12 @@
 #define MAXOBJ 3
-#define NSYST 1
+#define NSYST 13
 
 void doSync();
 void doAnalysis(RooUtil::AutoHist&);
 std::vector<TString> prefix(TString reg);
 TString prefixType(TString reg);
 TString prefixProc(TString reg);
+TString prefixFull(TString reg);
 void printevent( TString );
 
 //_________________________________________________________________________________________________
@@ -43,6 +44,49 @@ void doSync()
             if (passSSWZCREM()) printevent("SSWZCREM");
             if (passSSWZCRMM()) printevent("SSWZCRMM");
         }
+    }
+}
+
+//_________________________________________________________________________________________________
+void runSR(RooUtil::AutoHist& hists)
+{
+    for (int isyst = 0; isyst < NSYST; isyst++)
+    {
+        float wgt = weight();
+        float ffwgt = weight(true);
+        if (isyst == 1 || isyst == 2) ffwgt = weight(true, isyst);
+        if (isyst >= 3) wgt = weight(true, isyst);
+        if (isyst == 7) setJetIndicesToJESUp();
+        if (isyst == 8) setJetIndicesToJESDn();
+        if (passSSEE()) hists.fill(0, isyst, Form("%scount", prefixFull("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSEM()) hists.fill(1, isyst, Form("%scount", prefixFull("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSMM()) hists.fill(2, isyst, Form("%scount", prefixFull("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (pass3L0SFOS()) hists.fill(3, isyst, Form("%scount", prefixFull("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (pass3L1SFOS()) hists.fill(4, isyst, Form("%scount", prefixFull("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (pass3L2SFOS()) hists.fill(5, isyst, Form("%scount", prefixFull("SR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSAREEPred()) hists.fill(0, isyst, Form("%scount", prefixFull("PredSR").Data()), ffwgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSAREMPred()) hists.fill(1, isyst, Form("%scount", prefixFull("PredSR").Data()), ffwgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSARMMPred()) hists.fill(2, isyst, Form("%scount", prefixFull("PredSR").Data()), ffwgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (pass3LAR0SFOS()) hists.fill(3, isyst, Form("%scount", prefixFull("PredSR").Data()), ffwgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (pass3LAR1SFOS()) hists.fill(4, isyst, Form("%scount", prefixFull("PredSR").Data()), ffwgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (pass3LAR2SFOS()) hists.fill(5, isyst, Form("%scount", prefixFull("PredSR").Data()), ffwgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (isyst == 7) setJetIndicesToNominal();
+        if (isyst == 8) setJetIndicesToNominal();
+    }
+}
+
+//_________________________________________________________________________________________________
+void runWZCR(RooUtil::AutoHist& hists)
+{
+    for (int isyst = 0; isyst < NSYST; isyst++)
+    {
+        float wgt = weight();
+        float ffwgt = weight(true);
+        if (passSSWZCREE()) hists.fill(0, isyst, Form("%scount", prefixFull("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSWZCREM()) hists.fill(1, isyst, Form("%scount", prefixFull("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passSSWZCRMM()) hists.fill(2, isyst, Form("%scount", prefixFull("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passWZCR1SFOS()) hists.fill(4, isyst, Form("%scount", prefixFull("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
+        if (passWZCR2SFOS()) hists.fill(5, isyst, Form("%scount", prefixFull("WZCR").Data()), wgt, 6, 0., 6., NSYST, 0, NSYST);
     }
 }
 
@@ -266,6 +310,14 @@ TString prefixProc(TString reg)
 {
     std::vector<TString> arr = prefix(reg);
     TString output = TString::Format("%s__%s_", arr[0].Data(), arr[2].Data());
+    return output.Data();
+}
+
+//_________________________________________________________________________________________________
+TString prefixFull(TString reg)
+{
+    std::vector<TString> arr = prefix(reg);
+    TString output = TString::Format("%s_%s_%s_", arr[0].Data(), arr[1].Data(), arr[2].Data());
     return output.Data();
 }
 

@@ -116,9 +116,9 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
         "run",
         "nlep",
         "lep_tightCharge",
-        "jets_up_p4",
+        "jets_up_p4*",
         "jets_up_csv",
-        "jets_dn_p4",
+        "jets_dn_p4*",
         "jets_dn_csv",
         "met_T1CHS_miniAOD_CORE_up_pt",
         "met_T1CHS_miniAOD_CORE_up_phi",
@@ -181,6 +181,12 @@ void ScanChain(TChain* chain, TString output_name, TString base_optstr, int neve
 
         if (base_optstr.Contains("dosync"))
             doSync();
+
+        if (base_optstr.Contains("runSR"))
+            runSR(hists);
+
+        if (base_optstr.Contains("runWZCR"))
+            runWZCR(hists);
 
         if (base_optstr.Contains("doana"))
             doAnalysis(hists);
